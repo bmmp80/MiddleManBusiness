@@ -1,10 +1,10 @@
 # # main.py
 import CreateDatabase
-import ExportAndCalculateData
+import CreateFullReportWithPivotTables
 def main():
     CreateDatabase.create_database()
 
-    import dataaddagain
+    import DataInsertGUI
 
     # Ensure refresh_product_list is only called before mainloop
     dataaddagain.run()

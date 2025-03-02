@@ -427,11 +427,13 @@ def execute_query(query, params=(), fetch=False):
     conn.close()
     return data
 
-update_customer_sale()
-update_customer_sale_product()
-update_inventory_for_all_products()
-update_offer_product()
-update_offer()
+def update_database():
+    update_customer_sale_product()
+    update_customer_sale()
+    update_offer_product()
+    update_offer()
+    update_inventory_for_all_products()
+
 
 
 
