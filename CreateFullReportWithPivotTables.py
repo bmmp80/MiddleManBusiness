@@ -731,6 +731,7 @@ def execute_query(query, params=(), fetch=False):
     data = cursor.fetchall() if fetch else None
     conn.commit()
     conn.close()
+    print(data)
     return data
 
 def get_offers():
@@ -1029,11 +1030,12 @@ def create_pivot_with_xlwings(excel_file, raw_sheet_name, pivot_sheet_name):
 
 # ===================== MAIN EXECUTION =====================
 def main():
-    DataInsertGUI.setup_gui()
-    all_offers = execute_query("Select id FROM Offer")
-    all_offer_ids = [str(row[0]) for row in all_offers]
+    # DataInsertGUI.setup_gui()
+    all_offers = execute_query("Select id FROM Offer", fetch=True)
+    print('all offers: ', all_offers)
+    all_offer_ids = [str(row) for row in all_offers]
     all_sales = execute_query("SELECT id FROM CustomerSale", fetch=True)
-    all_sale_ids = [str(row[0]) for row in all_sales]
+    all_sale_ids = [str(row) for row in all_sales]
     # 2) Append inventory statistics to a new sheet named "Inventory Analytics"
     calculate_and_update_inventory_stats("Inventory Analytics")
     DataInsertGUI.generate_excel_report(REPORT_FILE, False, session_offer_ids=all_offer_ids,session_sale_ids=all_sale_ids)
