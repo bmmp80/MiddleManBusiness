@@ -733,7 +733,17 @@ def execute_query(query, params=(), fetch=False):
     conn.close()
     return data
 
-
+def get_offers():
+    rows = execute_query(
+        """
+        SELECT
+            o.id,
+        FROM Offer o
+        """,
+        fetch=True
+    )
+    # Build strings like "2 - SoCal ($1776.0)"; keys kept as numbers.
+    return {row[0]: f"{row[0]} - {row[1]} (${row[2]})" for row in rows}
 # ===================== calculate_and_update_inventory_stats =====================
 def calculate_and_update_inventory_stats(sheet_name):
     """
@@ -1018,16 +1028,18 @@ def create_pivot_with_xlwings(excel_file, raw_sheet_name, pivot_sheet_name):
 
 
 # ===================== MAIN EXECUTION =====================
-if __name__ == "__main__":
-    # 1) Generate raw data report; this should create a sheet named "Sheet1" if dataaddagain does so.
-    dataaddagain.generate_excel_report(REPORT_FILE, False)
-
+def main():
+    DataInsertGUI.setup_gui()
+    all_offers = execute_query("Select id FROM Offer")
+    all_offer_ids = [str(row[0]) for row in all_offers]
+    all_sales = execute_query("SELECT id FROM CustomerSale", fetch=True)
+    all_sale_ids = [str(row[0]) for row in all_sales]
     # 2) Append inventory statistics to a new sheet named "Inventory Analytics"
     calculate_and_update_inventory_stats("Inventory Analytics")
-
-    # 3) Get offer and sale ID lists (session-only)
-
+    DataInsertGUI.generate_excel_report(REPORT_FILE, False, session_offer_ids=all_offer_ids,session_sale_ids=all_sale_ids)
     # 4) Create a pivot table using raw data from "Sheet1".
     create_pivot_with_xlwings(REPORT_FILE, raw_sheet_name="Sheet1", pivot_sheet_name="Pivot1")
     create_second_pivot_with_xlwings(REPORT_FILE, raw_sheet_name="Sheet1", pivot_sheet_name="Pivot2")
     print("Process complete! Excel file with pivot table created at:", REPORT_FILE)
+
+main()
