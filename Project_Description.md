@@ -1,4 +1,4 @@
-1. Database Creation (CreateDatabase.py)
+# 1. Database Creation (CreateDatabase.py)
 This file sets up the SQLite database (named “business_tracker.db”) with all the required tables and relationships. Key points include:
 
 SQLite Connection & PRAGMA Settings:
@@ -41,7 +41,7 @@ Foreign Keys with CASCADE: Enforcing referential integrity between tables.
 CHECK Constraints: For example, in the Contact table to restrict the type field.
 UNIQUE Constraints: Preventing duplicate data.
 Default Values: For boolean fields and financial figures.
-2. Data Insertion and GUI (DataInsertGUI.py)
+# 2. Data Insertion and GUI (DataInsertGUI.py)
 This file contains a Tkinter‑based graphical user interface that lets users add data into the system. Key elements include:
 
 GUI Setup with Tkinter and ttk:
@@ -68,7 +68,7 @@ In later versions, the product unit fields are replaced by dropdowns that refere
 Error Handling and Validation:
 The code uses Tkinter’s messagebox to display errors (e.g., if required fields are missing or numeric values are invalid). It also performs unit conversion checks to ensure that sales do not exceed available purchased quantities.
 
-3. Update Calculated Fields (UpdateDatabaseWithCalculatedFields.py)
+# 3. Update Calculated Fields (UpdateDatabaseWithCalculatedFields.py)
 This module contains functions that update various calculated fields in the database after data insertion. Examples include:
 
 update_customer_sale() and update_customer_sale_product():
@@ -89,14 +89,14 @@ These functions update calculated fields in the junction tables (Offer_Product a
 update_inventory_by_product_id():
 This function calculates the inventory for a given product by converting all purchased quantities (using the conversion factor from the Unit table) and subtracting the sold quantities. It updates the Inventory table accordingly.
 
-4. Full Report and Pivot Tables (CreateFullReportWithPivotTables.py)
+# 4. Full Report and Pivot Tables (CreateFullReportWithPivotTables.py)
 This file pulls data from the database, creates a full raw data report, and then uses pivot tables for summarization. Key steps include:
 
 Data Extraction Using SQL and Pandas:
 The script executes SQL queries to retrieve data from the Offer, Offer_Product, and CustomerSale (and CustomerSale_Product) tables. The queries join the necessary tables (and sometimes use subqueries) to retrieve computed values (or use the pre‑calculated fields that were updated earlier).
 Pandas DataFrames are built from these queries to represent raw data in a cascading (or tabular) format.
 
-Excel Report Generation:
+#4 Excel Report Generation:
 The raw data is exported to an Excel file (full_analytics_report.xlsx) with a designated sheet (usually “Sheet1”).
 Then, the script uses xlwings to create pivot tables on additional sheets. One pivot table might group by customer and date to summarize sales, while another might group by offer and product to summarize quantities sold and revenue.
 The pivot table functions dynamically extract the header names from the raw data sheet so that the field names match exactly what’s in the Excel file.
@@ -105,7 +105,7 @@ The script also uses ExcelWriter in append mode (with openpyxl) to add new sheet
 xlwings Automation:
 The functions create pivot tables using Excel’s COM interface via xlwings. Options such as add_book=False prevent the creation of extra blank workbooks, and the pivot tables are created on newly added or cleared sheets.
 
-Overall Project Workflow
+# Overall Project Workflow
 Database Setup:
 When the project is first executed, the CreateDatabase.py script ensures that the SQLite database (business_tracker.db) is created with all the necessary tables, constraints, and relationships.
 
@@ -139,7 +139,6 @@ Specifically, enabling foreign key constraints with PRAGMA foreign_keys = ON;.
 
 Conclusion
 When executed, this project creates a complete business tracker system that:
-
 Sets up a structured SQLite database,
 Provides a GUI for entering and editing data,
 Automatically updates calculated fields,
