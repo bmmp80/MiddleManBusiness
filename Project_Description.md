@@ -1,5 +1,6 @@
 # Main Script Execution
 ## 1. Database Creation (CreateDatabase.py)
+#### create_database
 This file sets up the SQLite database (named “business_tracker.db”) with all the required tables and relationships. Key points include:
 
 SQLite Connection & PRAGMA Settings:
@@ -42,6 +43,10 @@ Foreign Keys with CASCADE: Enforcing referential integrity between tables.
 CHECK Constraints: For example, in the Contact table to restrict the type field.
 UNIQUE Constraints: Preventing duplicate data.
 Default Values: For boolean fields and financial figures.
+
+#### add_agriculture_data
+A simple script to insert fake data into the database.
+
 ## 2. Data Insertion and GUI (DataInsertGUI.py)
 This file contains a Tkinter‑based graphical user interface that lets users add data into the system. Key elements include:
 
