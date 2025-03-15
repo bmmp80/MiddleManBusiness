@@ -14,22 +14,22 @@ The pivot table functions dynamically extract headers from the raw data sheet an
 ## 1. Database Creation (CreateDatabase.py)
 #### create_database
 This file sets up the SQLite database (named “business_tracker.db”) with all the required tables and relationships. The tables created are:
-##### Contact:
-Stores information about suppliers, customers, and middlemen. It includes fields such as id (an auto‑increment primary key), name, site, phone, and type (with a CHECK constraint to allow only 'supplier', 'middleman', or 'customer'). Unique constraints ensure that the combination of id and name, or id and phone, remains unique.
-##### Offer:
-Represents an offer made by a supplier. It has fields like purchase_complete and sale_complete (both booleans with default values), dates (offer_start_date, offer_end_date, expected_receive_date, expected_flip_date), and financial metrics such as investment, total_sale_price, and profit. It also stores number_of_sales. The contact_id is a foreign key linking back to the Contact table.
-##### Offer_Product:
-This is a junction table connecting an offer to one or more products. It stores the quantity purchased and the purchase price per unit. It also holds a calculated field total_product_purchase_price (which is later updated via a separate function) and a unit_id field that references a Unit table. A composite primary key on (offer_id, product_id) prevents duplicate entries.
-##### CustomerSale:
-This table records a sale to a customer. It contains fields such as sell_date, total_sale_price, and a flag sale_complete that indicates whether the sale has been finalized (for example, if the sell_date is today or earlier). It also stores customer information and links to the Offer and Contact tables via foreign keys.
-##### CustomerSale_Product:
-Similar in concept to Offer_Product, this junction table links a CustomerSale with one or more products. It records the quantity sold, the selling price per unit, and a calculated field total_product_sale_price. It also references the Unit table via unit_id.
-##### Inventory:
-A simple table that keeps track of each product’s current inventory level (in grams, for instance). It has a primary key of product_id and a field for the current amount in inventory.
-##### Unit:
-This table stores unit names (like “g”, “oz”, “kg”, etc.) along with a conversion factor (typically to grams) and a field for a related unit. Although the original design allowed for a foreign key to Product, the current design omits a product_id so that units are maintained globally.
-##### Product:
-Stores products with fields for an auto‑increment id and a product name. It also includes a foreign key (unit_id) referencing the Unit table so that each product is associated with a default unit.
+ ##### Contact:
+ Stores information about suppliers, customers, and middlemen. It includes fields such as id (an auto‑increment primary key), name, site, phone, and type (with a CHECK constraint to allow only 'supplier', 'middleman', or 'customer'). Unique constraints ensure that the combination of id and name, or id and phone, remains unique.
+ ##### Offer:
+ Represents an offer made by a supplier. It has fields like purchase_complete and sale_complete (both booleans with default values), dates (offer_start_date, offer_end_date, expected_receive_date, expected_flip_date), and financial metrics such as investment, total_sale_price, and profit. It also stores number_of_sales. The contact_id is a foreign key linking back to the Contact table.
+ ##### Offer_Product:
+ This is a junction table connecting an offer to one or more products. It stores the quantity purchased and the purchase price per unit. It also holds a calculated field total_product_purchase_price (which is later updated via a separate function) and a unit_id field that references a Unit table. A composite primary key on (offer_id, product_id) prevents duplicate entries.
+ ##### CustomerSale:
+ This table records a sale to a customer. It contains fields such as sell_date, total_sale_price, and a flag sale_complete that indicates whether the sale has been finalized (for example, if the sell_date is today or earlier). It also stores customer information and links to the Offer and Contact tables via foreign keys.
+ ##### CustomerSale_Product:
+ Similar in concept to Offer_Product, this junction table links a CustomerSale with one or more products. It records the quantity sold, the selling price per unit, and a calculated field total_product_sale_price. It also references the Unit table via unit_id.
+ ##### Inventory:
+ A simple table that keeps track of each product’s current inventory level (in grams, for instance). It has a primary key of product_id and a field for the current amount in inventory.
+ ##### Unit:
+ This table stores unit names (like “g”, “oz”, “kg”, etc.) along with a conversion factor (typically to grams) and a field for a related unit. Although the original design allowed for a foreign key to Product, the current design omits a product_id so that units are maintained globally.
+ ##### Product:
+ Stores products with fields for an auto‑increment id and a product name. It also includes a foreign key (unit_id) referencing the Unit table so that each product is associated with a default unit.
 #### add_agriculture_data
 A simple script to insert fake data into the database.
 
