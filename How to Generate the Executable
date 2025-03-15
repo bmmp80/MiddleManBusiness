@@ -1,0 +1,20 @@
+# Creating the Exectable 
+### This will include it by deafult later on so it doesn't have to be built by users
+
+## 1. Install Python if you don't have it already installed (ideally the latest version).
+
+## 2. Install Dependencies
+Navigate to the root of this project folder in command prompt.
+Run this command:
+  pip install -r requirements.txt
+
+## 3. Install PyInstaller
+Run this command:
+  pip install pyinstaller
+
+## 4. Build the Executable
+Run this command:
+  pyinstaller --onefile main.py
+
+
+The executable will be called 'main.exe' and located within the same folder under a sub-folder named 'dist'.
