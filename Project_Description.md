@@ -13,7 +13,7 @@ The pivot table functions dynamically extract headers from the raw data sheet an
 # Detailed Main Script Execution
 ## 1. Database Creation (CreateDatabase.py)
 #### create_database
-This file sets up the SQLite database (named “business_tracker.db”) with all the required tables and relationships. Key points include:
+This file sets up the SQLite database (named “business_tracker.db”) with all the required tables and relationships. The tables created are:
 ##### Contact:
 Stores information about suppliers, customers, and middlemen. It includes fields such as id (an auto‑increment primary key), name, site, phone, and type (with a CHECK constraint to allow only 'supplier', 'middleman', or 'customer'). Unique constraints ensure that the combination of id and name, or id and phone, remains unique.
 ##### Offer:
